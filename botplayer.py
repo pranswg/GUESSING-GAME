@@ -2,16 +2,16 @@ import socket
 
 HOST = '127.0.0.1'
 PORT = 65432
-PASSWORD = "123"
+PASSWORD = "francis123"
 
 def bot():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
 
-        print(s.recv(1024).decode(), end='')  # Password prompt
+        print(s.recv(1024).decode(), end='')  
         s.sendall(PASSWORD.encode())
 
-        print(s.recv(1024).decode(), end='')  # Welcome message
+        print(s.recv(1024).decode(), end='')  
 
         low, high = 1, 100
         guess_count = 0
@@ -25,11 +25,12 @@ def bot():
 
             guess_count += 1
 
-            if "Higher" in response:
+            if "higher" in response.lower():
                 low = guess + 1
-            elif "Lower" in response:
+            elif "lower" in response.lower():
                 high = guess - 1
-            elif "Correct!" in response:
+            elif "correct" in response.lower():
+                print(f"Bot guessed the number in {guess_count} attempts!")
                 break
 
 if __name__ == "__main__":
